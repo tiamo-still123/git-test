@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--    起别名，在包下的所有类默认为类名-->
+    <typeAliases>
+        <package name="com.example.pojo"/>
+    </typeAliases>
+<!--    environment：配置数据库连接环境信息，可以配置多个环境。通过default属性切换不同的环境
+-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+
+<!--                数据库连接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///libraryDemo?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+<!--        sql映射文件-->
+<!--        <mapper resource="com/example/mapper/UserMapper.xml"/>-->
+<!--        mapper代理方式,包扫描映射包下所有xml文件-->
+        <package name="com.example.mapper"/>
+    </mappers>
+</configuration>
