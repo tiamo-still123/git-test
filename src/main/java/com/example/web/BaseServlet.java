@@ -19,12 +19,8 @@ public class BaseServlet extends HttpServlet {
         String uri = req.getRequestURI();
 //        2.获取最后一段路径，方法名
         int index = uri.lastIndexOf('/');
-        String methodName = uri.substring(index+1);//       +1不带/
-        //获取地址后执行方法
-        //获取字节码对象Class
-        //谁调用this所在的方法service，this就代表谁
+        String methodName = uri.substring(index+1);
         Class<? extends BaseServlet> cls = this.getClass();
-        //获取方法method对象
         try {
             Method method = cls.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             //执行方法

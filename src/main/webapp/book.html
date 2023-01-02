@@ -95,16 +95,55 @@
               label="内容简介"
               width="300">
       </el-table-column>
-      <el-table-column>
-      <el-row>
-        <el-button type="primary">修改</el-button>
-        <el-button type="danger">删除</el-button>
-      </el-row>
+      <el-table-column
+              label="操作"
+              width="200"
+      >
+        <template slot-scope="scope">
+        <el-row>
+          <el-button type="primary" @click="Edit(scope.row)">修改</el-button>
+          <el-button type="danger">删除</el-button>
+        </el-row>
+        </template>
       </el-table-column>
-
     </el-table>
   </template>
-
+  <!--  修改信息表单-->
+  <el-dialog
+          title="修改信息"
+          :visible.sync="updateVisible"
+          width="30%">
+    <el-form ref="updateForm" :model="form" label-width="80px">
+      <el-form-item label="书号">
+        <el-input v-model="updateForm.iSBN"></el-input>
+      </el-form-item>
+      <el-form-item label="书名">
+        <el-input v-model="updateForm.bookTitle"></el-input>
+      </el-form-item>
+      <el-form-item label="作者">
+        <el-input v-model="updateForm.author"></el-input>
+      </el-form-item>
+      <el-form-item label="出版日期">
+        <el-input v-model="updateForm.publishDate"></el-input>
+      </el-form-item>
+      <el-form-item label="类别">
+        <el-input v-model="updateForm.category"></el-input>
+      </el-form-item>
+      <el-form-item label="库存">
+        <el-input v-model="updateForm.stockNumber"></el-input>
+      </el-form-item>
+      <el-form-item label="定价">
+        <el-input v-model="updateForm.price"></el-input>
+      </el-form-item>
+      <el-form-item label="内容简介">
+        <el-input type="textarea" v-model="updateForm.introduction"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="updateBook">修改</el-button>
+        <el-button @click="updateVisible = false">取消</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
 </div>
 
 <script src="js/Vue.js"></script>
@@ -156,6 +195,27 @@
             });
           }
         })
+      },
+    //  修改
+      Edit(row){
+          this.updateForm =JSON.parse(JSON.stringify(row));
+          this.updateVisible = true;
+      },
+      updateBook(){
+        axios({
+          method:"post",
+          url:"http://localhost:8080/memo_war/book/updateBook",
+          data:this.updateForm
+        }).then((resp)=>{
+          if(resp.data=="bingo"){
+            this.updateVisible = false;
+            this.selectAll();
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            });
+          }
+        })
       }
     },
     data(){
@@ -182,7 +242,19 @@
           price:"",
           introduction:""
         },
+        updateForm:{
+          id:"",
+          iSBN:"",
+          bookTitle:"",
+          author:"",
+          publishDate:"",
+          category:"",
+          stockNumber:"",
+          price:"",
+          introduction:""
+        },
         dialogVisible:false,
+        updateVisible:false
       }
     }
   })

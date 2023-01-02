@@ -30,6 +30,14 @@ public class BookServiceImpl implements BookService {
         sqlSession.close();
     }
 
+    @Override
+    public void update(Book book) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        BookMapper mapper = sqlSession.getMapper(BookMapper.class);
+        mapper.update(book);
+        sqlSession.close();
+    }
+
     @Test
     public void test(){
         BookService bookService = new BookServiceImpl();

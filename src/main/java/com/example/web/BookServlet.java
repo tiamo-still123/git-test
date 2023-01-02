@@ -30,4 +30,12 @@ public class BookServlet extends BaseServlet{
         resp.setContentType("text/json;charset=utf-8");
         resp.getWriter().write("bingo");
     }
+    public void updateBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String line = req.getReader().readLine();
+        System.out.println(line);
+        Book book = JSON.parseObject(line, Book.class);
+        bookService.update(book);
+        resp.setContentType("text/json;charset=utf-8");
+        resp.getWriter().write("bingo");
+    }
 }
