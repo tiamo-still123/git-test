@@ -38,6 +38,14 @@ public class BookServiceImpl implements BookService {
         sqlSession.close();
     }
 
+    @Override
+    public void deleteById(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        BookMapper mapper = sqlSession.getMapper(BookMapper.class);
+        mapper.deleteById(id);
+        sqlSession.close();
+    }
+
     @Test
     public void test(){
         BookService bookService = new BookServiceImpl();

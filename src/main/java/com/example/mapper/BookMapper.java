@@ -16,4 +16,6 @@ public interface BookMapper {
     void add(Book book);
 
     void update(Book book);
+
+    void deleteById(int id);
 }

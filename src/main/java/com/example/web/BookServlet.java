@@ -38,4 +38,11 @@ public class BookServlet extends BaseServlet{
         resp.setContentType("text/json;charset=utf-8");
         resp.getWriter().write("bingo");
     }
+
+    public void deleteById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String id = req.getParameter("id");
+        bookService.deleteById(Integer.parseInt(id));
+        resp.setContentType("text/json;charset=utf-8");
+        resp.getWriter().write("bingo");
+    }
 }

@@ -8,4 +8,5 @@ public interface BookService {
     List<Book> selectAll();
     void add(Book book);
     void update(Book book);
+    void deleteById(int id);
 }

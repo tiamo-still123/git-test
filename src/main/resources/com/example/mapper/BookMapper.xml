@@ -8,4 +8,9 @@ update book
 set ISBN = #{ISBN},bookTitle=#{bookTitle},author=#{author},publishDate=#{publishDate},category=#{category},stockNumber=#{stockNumber},price=#{price},introduction=#{introduction}
 where id = #{id}
 </update>
+    <delete id="deleteById">
+        delete
+        from book
+        where id = #{id};
+    </delete>
 </mapper>
